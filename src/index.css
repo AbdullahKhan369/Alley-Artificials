@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+/* ---- Brand tokens (logo se liye gaye colors) ---- */
+@theme {
+  --color-cream: #f7f2e8;
+  --color-ivory: #fcfaf5;
+  --color-sand: #ece3d1;
+  --color-line: #e2d8c4;
+  --color-olive: #3b4630;
+  --color-olive-deep: #262f20;
+  --color-olive-soft: #5d6c4e;
+  --color-sage: #a3ae90;
+  --color-gold: #b89a62;
+  --color-gold-soft: #dccaa0;
+  --color-blush: #ecd6ce;
+  --color-rose: #9c5b58;
+  --color-ink: #2b3226;
+  --color-mute: #78806b;
+
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-body: "Jost", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(59 70 48 / 0.06), 0 12px 32px -12px rgb(59 70 48 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(59 70 48 / 0.08), 0 28px 48px -20px rgb(59 70 48 / 0.32);
+}
+
+/* Sab custom CSS layers ke ANDAR hai, taake Tailwind utilities kabhi override na hon */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+    color: var(--color-olive-deep);
+  }
+  ::selection {
+    background: var(--color-gold-soft);
+    color: var(--color-olive-deep);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+  button { cursor: pointer; }
+  img { max-width: 100%; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) { .container-x { padding-inline: 2.5rem; } }
+
+  /* Soft light beam jo logo/banner ke background jaisi hai */
+  .light-beam {
+    background:
+      radial-gradient(60rem 30rem at 85% -10%, rgb(255 255 255 / 0.7), transparent 60%),
+      linear-gradient(115deg, transparent 38%, rgb(255 255 255 / 0.35) 46%, transparent 56%),
+      linear-gradient(180deg, var(--color-ivory), var(--color-cream));
+  }
+
+  /* Hero crops: mobile par upar (neeche aur side se fade), desktop par bottom-side (side aur upar se fade) */
+  .hero-crop-l, .hero-crop-r {
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  .hero-crop-l {
+    -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 100%), linear-gradient(to right, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 50%, transparent 100%), linear-gradient(to right, #000 55%, transparent 100%);
+  }
+  .hero-crop-r {
+    -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 100%), linear-gradient(to left, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 50%, transparent 100%), linear-gradient(to left, #000 55%, transparent 100%);
+  }
+  @media (min-width: 768px) {
+    .hero-crop-l {
+      -webkit-mask-image: linear-gradient(to right, #000 55%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 24%);
+      mask-image: linear-gradient(to right, #000 55%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 24%);
+    }
+    .hero-crop-r {
+      -webkit-mask-image: linear-gradient(to left, #000 50%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 24%);
+      mask-image: linear-gradient(to left, #000 50%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 24%);
+    }
+  }
+
+  .hide-scrollbar { scrollbar-width: none; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+
+  /* Product masonry (natural aspect) */
+  .masonry { column-count: 2; column-gap: 0.9rem; }
+  @media (min-width: 768px) { .masonry { column-count: 3; column-gap: 1.25rem; } }
+  @media (min-width: 1100px) { .masonry { column-count: 4; } }
+  .masonry > * { break-inside: avoid; margin-bottom: 0.9rem; }
+  @media (min-width: 768px) { .masonry > * { margin-bottom: 1.25rem; } }
+
+  .skeleton {
+    background: linear-gradient(100deg, var(--color-sand) 30%, var(--color-ivory) 50%, var(--color-sand) 70%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
