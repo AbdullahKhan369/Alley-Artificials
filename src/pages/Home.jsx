@@ -193,16 +193,16 @@ function Occasions() {
       </Reveal>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
         {OCC.map(({ label, Icon }, i) => (
-          <Reveal key={label} delay={i * 0.05}>
+          <Reveal key={label} delay={i * 0.05} className="h-full">
             <button
               onClick={() => openOrder(null, { occasion: label })}
-              className="group flex w-full items-center gap-4 rounded-3xl border border-line bg-ivory p-5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-olive hover:bg-olive hover:text-cream hover:shadow-lift md:p-6"
+              className="group flex h-full w-full flex-col items-start gap-3 rounded-3xl border border-line bg-ivory p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-olive hover:bg-olive hover:text-cream hover:shadow-lift md:flex-row md:items-center md:gap-4 md:p-6"
             >
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-sand text-olive transition group-hover:bg-cream/15 group-hover:text-gold-soft">
+              <span className="grid size-11 shrink-0 place-items-center rounded-full bg-sand text-olive transition group-hover:bg-cream/15 group-hover:text-gold-soft md:size-12">
                 <Icon className="size-5" />
               </span>
-              <span className="font-display text-2xl leading-tight">{label}</span>
-              <ArrowRight className="ml-auto size-4 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+              <span className="min-w-0 font-display text-[1.4rem] leading-tight md:text-2xl">{label}</span>
+              <ArrowRight className="ml-auto hidden size-4 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 md:block" />
             </button>
           </Reveal>
         ))}
